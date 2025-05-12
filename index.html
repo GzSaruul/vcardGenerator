@@ -21,8 +21,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="img/favicons/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-  <script src="js/script.js" type="module" defer></script>
+  <script type="module" src="js/script.js"  defer></script>
+  
   <title>vCard Generator</title>
 </head>
 <body>
@@ -41,10 +43,21 @@
         <header class="header">
           <h2 class="header__title">Personal Data</h2>
         </header>
-        <input class="data__input" type="text" name="Name" placeholder="Name*">
-        <input class="data__input" type="text" name="LastName" placeholder="Last Name">
+        <input class="data__input" type="text" name="Name_EN" placeholder="Name_EN*">
+        <input class="data__input" type="text" name="LastName_EN" placeholder="Last Name_EN*">
+        <input class="data__input" type="text" name="Department_EN" placeholder="Department_EN*">
+        <input class="data__input" type="text" name="Occupation_EN" placeholder="Occupation_EN*">
+        <input class="data__input" type="text" name="CompanyName_EN" placeholder="CompanyName_EN*">
+        <input class="data__input" type="text" name="CompanyAddress_EN" placeholder="CompanyAddress_EN*">
+        <input class="data__input" type="text" name="Name_MN" placeholder="Name_MN*">
+        <input class="data__input" type="text" name="LastName_MN" placeholder="Last Name_MN*">
+        <input class="data__input" type="text" name="Department_MN" placeholder="Department_MN*">
+        <input class="data__input" type="text" name="Occupation_MN" placeholder="Occupation_MN*">
+        <input class="data__input" type="text" name="CompanyName_MN" placeholder="CompanyName_MN*">
+        <input class="data__input" type="text" name="CompanyAddress_MN" placeholder="CompanyAddress_MN*">
         <input class="data__input" type="tel" name="Phone" placeholder="Phone*">
         <input class="data__input" type="email" name="Email" placeholder="e-mail">
+        <input class="data__input" type="text" name="Website" placeholder="Website">
         <div class="data__message">Enter the data to generate the code</div>
       </section>
 
