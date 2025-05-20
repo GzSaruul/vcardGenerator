@@ -11,7 +11,7 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('public')); // Serve static files (CSS, JS, images)
 app.set('view engine', 'ejs');
 app.use(session({ secret: 'Saruul1127', resave: false, saveUninitialized: true }));
 app.set('views', path.join(__dirname, 'views'));
@@ -112,11 +112,11 @@ app.post('/edit-employee/:id', (req, res) => {
 
   const sql = `
         UPDATE employees SET
-            Name_EN = ?, LastName_EN = ?, Department_EN = ?, Occupation_EN = ?, CompanyName_EN = ?,
-            Street_EN = ?, POBox_EN = ?, Region_EN = ?, City_EN = ?, Postal_EN = ?, Country_EN = ?,
-            Name_MN = ?, LastName_MN = ?, Department_MN = ?, Occupation_MN = ?, CompanyName_MN = ?,
-            Street_MN = ?, POBox_MN = ?, Region_MN = ?, City_MN = ?, Postal_MN = ?, Country_MN = ?,
-            Phone = ?, Email = ?, Website = ?
+          Name_EN = ?, LastName_EN = ?, Department_EN = ?, Occupation_EN = ?, CompanyName_EN = ?,
+          Street_EN = ?, POBox_EN = ?, Region_EN = ?, City_EN = ?, Postal_EN = ?, Country_EN = ?,
+          Name_MN = ?, LastName_MN = ?, Department_MN = ?, Occupation_MN = ?, CompanyName_MN = ?,
+          Street_MN = ?, POBox_MN = ?, Region_MN = ?, City_MN = ?, Postal_MN = ?, Country_MN = ?,
+          Phone = ?, Email = ?, Website = ?
         WHERE id = ?
     `;
 
@@ -155,7 +155,7 @@ app.post('/api/employee', (req, res) => {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
     Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
-    Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
+    Street_MN, POBox_EN, Region_MN, City_MN, Postal_MN, Country_MN,
     Phone, Email, Website, qr_data
   ) VALUES (${Array(26).fill('?').join(',')})`; // Ensure this is correct
 
@@ -163,7 +163,7 @@ app.post('/api/employee', (req, res) => {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
     Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
-    Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
+    Street_MN, POBox_EN, Region_MN, City_MN, Postal_MN, Country_MN,
     Phone, Email, Website, qr_data
   ];
 
@@ -192,26 +192,55 @@ app.get('/employee-list', (req, res) => {
 // Employee Card
 app.get('/card/:id', (req, res) => {
   const id = req.params.id;
-  db.get('SELECT * FROM employees WHERE id = ?', [id], (err, row) => {
-    if (err) return res.status(500).send('Database error');
+  // Include qr_data in the select query
+  db.get('SELECT *, qr_data FROM employees WHERE id = ?', [id], (err, row) => {
+    if (err) {
+      console.error("Error fetching employee card:", err);
+      return res.status(500).send('Database error');
+    }
     if (!row) return res.status(404).send('Employee not found');
+    // Pass the entire row (which now includes qr_data) to the template
     res.render('card', { employee: row });
   });
 });
 
 // Route to handle deleting an employee
 app.get('/delete-employee/:id', (req, res) => {
-    if (!req.session.user) return res.redirect('/login');
-    const employeeId = req.params.id;
-    db.run('DELETE FROM employees WHERE id = ?', [employeeId], function (err) {
-        if (err) {
-            console.error('Error deleting employee:', err);
-            return res.status(500).send('Error deleting employee');
-        }
-        console.log(`Employee with ID ${employeeId} deleted.`);
-        res.redirect('/dashboard'); // Redirect back to the dashboard after deletion
-    });
+  if (!req.session.user) return res.redirect('/login');
+  const employeeId = req.params.id;
+  db.run('DELETE FROM employees WHERE id = ?', [employeeId], function (err) {
+    if (err) {
+      console.error('Error deleting employee:', err);
+      return res.status(500).send('Error deleting employee');
+    }
+    console.log(`Employee with ID ${employeeId} deleted.`);
+    res.redirect('/dashboard'); // Redirect back to the dashboard after deletion
+  });
 });
+
+// Route to generate QR code
+app.get('/download-vcard/:id', (req, res) => {
+  const id = req.params.id;
+  db.get('SELECT * FROM employees WHERE id = ?', [id], (err, employee) => {
+    if (err || !employee) return res.status(404).send('Employee not found');
+
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:${employee.LastName_EN};${employee.Name_EN}
+FN:${employee.Name_EN} ${employee.LastName_EN}
+ORG:${employee.CompanyName_EN}
+TITLE:${employee.Occupation_EN}
+TEL;TYPE=CELL:${employee.Phone}
+EMAIL;TYPE=INTERNET:${employee.Email}
+URL:${employee.Website}
+END:VCARD`;
+
+    res.setHeader('Content-disposition', 'attachment; filename=contact.vcf');
+    res.setHeader('Content-type', 'text/vcard');
+    res.send(vcard);
+  });
+});
+// Route to generate QR code
 
 // Logout
 app.get('/logout', (req, res) => {
