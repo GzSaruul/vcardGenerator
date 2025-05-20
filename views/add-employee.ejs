@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/add-employee.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <script type="module" src="./js/script.js" defer></script>
+
+    <title><%= title %></title>
+
+</head>
+
+<body>
+
+    <div class="back-button">
+
+        <button onclick="window.location.href='/dashboard'">← Back to Dashboard</button>
+
+    </div>
+
+    <div class="container">
+
+        <header>
+
+            <h1 class="title"><%= headerTitle %></h1>
+
+        </header>
+
+        <main class="content">
+
+            <section class="data" id="data">
+
+                <header class="header">
+
+                    <h2 class="header__title"><%= sectionTitle %></h2>
+
+                </header>
+
+
+
+                <div id="englishFields">
+
+                    <h3>English Fields</h3>
+
+                    <input class="data__input" type="text" name="Name_EN" placeholder="<%= fieldNameEN %>" />
+
+                    <input class="data__input" type="text" name="LastName_EN" placeholder="<%= fieldLastNameEN %>" />
+
+                    <input class="data__input" type="text" name="Department_EN" placeholder="<%= fieldDepartmentEN %>" />
+
+                    <input class="data__input" type="text" name="Occupation_EN" placeholder="<%= fieldOccupationEN %>" />
+
+                    <input class="data__input" type="text" name="CompanyName_EN" placeholder="<%= fieldCompanyNameEN %>" />
+
+                    <input class="data__input" type="text" name="Street_EN" placeholder="<%= fieldStreetEN %>" />
+
+                    <input class="data__input" type="text" name="POBox_EN" placeholder="<%= fieldPOBoxEN %>" />
+
+                    <input class="data__input" type="text" name="Region_EN" placeholder="<%= fieldRegionEN %>" />
+
+                    <input class="data__input" type="text" name="City_EN" placeholder="<%= fieldCityEN %>" />
+
+                    <input class="data__input" type="text" name="Postal_EN" placeholder="<%= fieldPostalEN %>" />
+
+                    <input class="data__input" type="text" name="Country_EN" placeholder="<%= fieldCountryEN %>" />
+
+                </div>
+
+
+
+                <div id="mongolianFields">
+
+                    <h3>Mongolian Fields</h3>
+
+                    <input class="data__input" type="text" name="Name_MN" placeholder="<%= fieldNameMN %>" />
+
+                    <input class="data__input" type="text" name="LastName_MN" placeholder="<%= fieldLastNameMN %>" />
+
+                    <input class="data__input" type="text" name="Department_MN" placeholder="<%= fieldDepartmentMN %>" />
+
+                    <input class="data__input" type="text" name="Occupation_MN" placeholder="<%= fieldOccupationMN %>" />
+
+                    <input class="data__input" type="text" name="CompanyName_MN" placeholder="<%= fieldCompanyNameMN %>" />
+
+                    <input class="data__input" type="text" name="Street_MN" placeholder="<%= fieldStreetMN %>" />
+
+                    <input class="data__input" type="text" name="POBox_MN" placeholder="<%= fieldPOBoxMN %>" />
+
+                    <input class="data__input" type="text" name="Region_MN" placeholder="<%= fieldRegionMN %>" />
+
+                    <input class="data__input" type="text" name="City_MN" placeholder="<%= fieldCityMN %>" />
+
+                    <input class="data__input" type="text" name="Postal_MN" placeholder="<%= fieldPostalMN %>" />
+
+                    <input class="data__input" type="text" name="Country_MN" placeholder="<%= fieldCountryMN %>" />
+
+                </div>
+
+
+
+                <div id="commonFields">
+
+                    <h3>Common Fields</h3>
+
+                    <input class="data__input" type="tel" name="Phone" placeholder="<%= fieldPhone %>" />
+
+                    <input class="data__input" type="email" name="Email" placeholder="<%= fieldEmail %>" />
+
+                    <input class="data__input" type="text" name="Website" placeholder="<%= fieldWebsite %>" />
+
+                    <div class="data__message"><%= message %></div>
+
+                </div>
+
+            </section>
+
+
+
+            <section class="qr" id="qr"></section>
+
+            <section class="btn-panel">
+
+                <button id="generateQr" disabled><%= generateQrText %></button>
+
+                <button id="download" disabled><%= downloadText %></button>
+
+                <button id="saveData">Save Data</button>         
+
+                <select name="extension" disabled>
+
+                    <option value="png">png</option>
+
+                    <option value="jpeg">jpeg</option>
+
+                    <option value="svg">svg</option>
+
+                    <option value="webp">webp</option>
+
+                </select>
+
+            </section>
+
+
+
+            <section class="options">
+
+                <label for="languageSelect"><%= languageLabel %></label>
+
+                <select id="languageSelect">
+
+                    <option value="EN" selected><%= englishOption %></option>
+
+                    <option value="MN"><%= mongolianOption %></option>
+
+                </select>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
+

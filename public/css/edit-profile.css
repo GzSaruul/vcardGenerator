@@ -1,0 +1,139 @@
+/* General Page Styling */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f3f4f6;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #4c8baf;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1.1rem;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Form Styling */
+section.employee-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+form fieldset {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+form legend {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #555;
+  padding: 0 10px;
+}
+
+form div {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+form div label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+form div input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+form div input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+a.cancel-button {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+a.cancel-button:hover {
+  background-color: #ccc;
+}
+

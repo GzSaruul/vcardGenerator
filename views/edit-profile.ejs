@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="/css/edit-profile.css"> </head>
+<body>
+    <header>
+        <h1>Edit Employee</h1>
+        <nav>
+            <a href="/dashboard">Dashboard</a> |
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="employee-form">
+            <h2>Edit Employee Information</h2>
+            <% if (employee) { %>
+                <form action="/edit-employee/<%= employee.id %>" method="POST">
+                    <fieldset>
+                        <legend>English Information</legend>
+                        <div>
+                            <label for="Name_EN">Name:</label>
+                            <input type="text" id="Name_EN" name="Name_EN" value="<%= employee.Name_EN %>">
+                        </div>
+                        <div>
+                            <label for="LastName_EN">Last Name:</label>
+                            <input type="text" id="LastName_EN" name="LastName_EN" value="<%= employee.LastName_EN %>">
+                        </div>
+                        <div>
+                            <label for="Department_EN">Department:</label>
+                            <input type="text" id="Department_EN" name="Department_EN" value="<%= employee.Department_EN %>">
+                        </div>
+                        <div>
+                            <label for="Occupation_EN">Occupation:</label>
+                            <input type="text" id="Occupation_EN" name="Occupation_EN" value="<%= employee.Occupation_EN %>">
+                        </div>
+                        <div>
+                            <label for="CompanyName_EN">Company Name:</label>
+                            <input type="text" id="CompanyName_EN" name="CompanyName_EN" value="<%= employee.CompanyName_EN %>">
+                        </div>
+                        <div>
+                            <label for="Street_EN">Street:</label>
+                            <input type="text" id="Street_EN" name="Street_EN" value="<%= employee.Street_EN %>">
+                        </div>
+                        <div>
+                            <label for="POBox_EN">P.O. Box:</label>
+                            <input type="text" id="POBox_EN" name="POBox_EN" value="<%= employee.POBox_EN %>">
+                        </div>
+                        <div>
+                            <label for="Region_EN">Region:</label>
+                            <input type="text" id="Region_EN" name="Region_EN" value="<%= employee.Region_EN %>">
+                        </div>
+                        <div>
+                            <label for="City_EN">City:</label>
+                            <input type="text" id="City_EN" name="City_EN" value="<%= employee.City_EN %>">
+                        </div>
+                        <div>
+                            <label for="Postal_EN">Postal Code:</label>
+                            <input type="text" id="Postal_EN" name="Postal_EN" value="<%= employee.Postal_EN %>">
+                        </div>
+                        <div>
+                            <label for="Country_EN">Country:</label>
+                            <input type="text" id="Country_EN" name="Country_EN" value="<%= employee.Country_EN %>">
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Mongolian Information</legend>
+                        <div>
+                            <label for="Name_MN">Нэр:</label>
+                            <input type="text" id="Name_MN" name="Name_MN" value="<%= employee.Name_MN %>">
+                        </div>
+                        <div>
+                            <label for="LastName_MN">Овог:</label>
+                            <input type="text" id="LastName_MN" name="LastName_MN" value="<%= employee.LastName_MN %>">
+                        </div>
+                        <div>
+                            <label for="Department_MN">Хэлтэс:</label>
+                            <input type="text" id="Department_MN" name="Department_MN" value="<%= employee.Department_MN %>">
+                        </div>
+                        <div>
+                            <label for="Occupation_MN">Албан тушаал:</label>
+                            <input type="text" id="Occupation_MN" name="Occupation_MN" value="<%= employee.Occupation_MN %>">
+                        </div>
+                        <div>
+                            <label for="CompanyName_MN">Байгууллага:</label>
+                            <input type="text" id="CompanyName_MN" name="CompanyName_MN" value="<%= employee.CompanyName_MN %>">
+                        </div>
+                        <div>
+                            <label for="Street_MN">Гудамж:</label>
+                            <input type="text" id="Street_MN" name="Street_MN" value="<%= employee.Street_MN %>">
+                        </div>
+                        <div>
+                            <label for="POBox_MN">Шуудангийн хайрцаг:</label>
+                            <input type="text" id="POBox_MN" name="POBox_MN" value="<%= employee.POBox_MN %>">
+                        </div>
+                        <div>
+                            <label for="Region_MN">Бүс нутаг:</label>
+                            <input type="text" id="Region_MN" name="Region_MN" value="<%= employee.Region_MN %>">
+                        </div>
+                        <div>
+                            <label for="City_MN">Хот:</label>
+                            <input type="text" id="City_MN" name="City_MN" value="<%= employee.City_MN %>">
+                        </div>
+                        <div>
+                            <label for="Postal_MN">Шуудан код:</label>
+                            <input type="text" id="Postal_MN" name="Postal_MN" value="<%= employee.Postal_MN %>">
+                        </div>
+                        <div>
+                            <label for="Country_MN">Улс:</label>
+                            <input type="text" id="Country_MN" name="Country_MN" value="<%= employee.Country_MN %>">
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Contact Information</legend>
+                        <div>
+                            <label for="Phone">Phone:</label>
+                            <input type="text" id="Phone" name="Phone" value="<%= employee.Phone %>">
+                        </div>
+                        <div>
+                            <label for="Email">Email:</label>
+                            <input type="email" id="Email" name="Email" value="<%= employee.Email %>">
+                        </div>
+                        <div>
+                            <label for="Website">Website:</label>
+                            <input type="url" id="Website" name="Website" value="<%= employee.Website %>">
+                        </div>
+                    </fieldset>
+
+                    <button type="submit">Save Changes</button>
+                    <a href="/dashboard" class="cancel-button">Cancel</a>
+                </form>
+            <% } else { %>
+                <p>Employee not found.</p>
+            <% } %>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 vCard Generator</p>
+    </footer>
+</body>
+</html>
