@@ -1,91 +1,385 @@
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f9fafb;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
+body {
 
-    h1 {
-      font-size: 2.2rem;
-      color: #4c8baf;
-      margin-bottom: 20px;
-      text-align: center;
-      padding-top: 20px;
-    }
+  font-family: 'Roboto', sans-serif;
 
-    h2 {
-      font-size: 1.5rem;
-      color: #555;
-      margin-top: 30px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
+  background-color: #f9fafb;
 
-    h3 {
-      font-size: 1.2rem;
-      color: #666;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
+  margin: 0;
 
-    p {
-      font-size: 1.1rem;
-      color: #777;
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
+  padding: 0;
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 30px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      position: relative; /* Make sure the container is a positioning context */
-    }
+  color: #333;
 
-    @media (max-width: 768px) {
-      .container {
-        padding: 20px;
-      }
+  line-height: 1.6; /* Added for better text readability */
 
-      h1 {
-        font-size: 2rem;
-      }
+}/* Headings */h1 {
 
-      h2 {
-        font-size: 1.3rem;
-      }
+  font-size: 2.5rem; /* Slightly increased for better visual impact */
 
-      h3 {
-        font-size: 1.1rem;
-      }
+  color: #4c8baf;
 
-      p {
-        font-size: 1rem;
-      }
-    }
+  text-align: center;
 
-    .back-button {
-      position: absolute; /* Position the button */
-      top: 20px;          /* Adjust top spacing as needed */
-      left: 20px;         /* Adjust left spacing */
-    }
+  padding-top: 30px; /* Increased padding */
 
-    .back-button button {
-      background-color: #4CAF50; /* Green */
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
+  margin-bottom: 40px; /* Increased margin */
 
-    .back-button button:hover {
-      background-color: #367c39; /* Darker green */
-    }
+  font-weight: 500; /* Lighter font weight for a modern feel */
+
+}h2 {
+
+  font-size: 1.7rem; /* Increased size */
+
+  color: #444;
+
+  margin: 40px 0 15px; /* Adjusted margins */
+
+  border-bottom: 2px solid #ddd; /* Thicker border */
+
+  padding-bottom: 8px; /* Increased padding */
+
+  font-weight: 400; /* Slightly lighter */
+
+}h3 {
+
+  font-size: 1.3rem; /* Increased size */
+
+  color: #555;
+
+  margin: 25px 0 12px; /* Adjusted margins */
+
+  font-weight: 400;
+
+}p {
+
+  font-size: 1.1rem;
+
+  color: #666;
+
+  margin-bottom: 12px; /* Adjusted margin */
+
+}/* Container */.container {
+
+  max-width: 960px; /* Adjusted max-width for common screen sizes */
+
+  margin: 40px auto; /* Added top/bottom margin */
+
+  padding: 40px; /* Increased padding */
+
+  background-color: #fff;
+
+  border-radius: 12px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+
+  position: relative;
+
+}/* Info Sections */.info-wrapper {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1.5rem; /* Adjusted gap */
+
+}.info-block {
+
+  flex: 1;
+
+  background-color: #f7f9fc;
+
+  padding: 25px; /* Increased padding */
+
+  border-radius: 8px;
+
+  border: 1px solid #e3e6ea;
+
+}/* QR Section */.qr-section {
+
+  text-align: center;
+
+  margin-top: 50px; /* Increased margin */
+
+  display: flex; /* Enable flexbox for centering */
+
+  flex-direction: column; /* Arrange items vertically */
+
+  align-items: center; /* Center items horizontally */
+
+}.qr-code img {
+
+  width: 220px; /* Slightly larger QR code */
+
+  max-width: 100%;
+
+  height: auto;
+
+  margin-top: 20px; /* Increased margin */
+
+  border: 1px solid #ccc;
+
+  padding: 10px; /* Increased padding */
+
+  background-color: #fff;
+
+  border-radius: 8px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for QR code */
+
+}#noQrCode {
+
+  color: #999;
+
+  font-style: italic;
+
+  margin-top: 15px;
+
+}/* Form Elements */label[for="languageSelect"] {
+
+  font-size: 1rem;
+
+  margin-right: 10px;
+
+  font-weight: 500; /* Slightly bold labels */
+
+}#languageSelect {
+
+  padding: 10px 15px; /* Increased padding */
+
+  font-size: 1rem;
+
+  border: 1px solid #ccc;
+
+  border-radius: 6px; /* More rounded */
+
+  background-color: #fff;
+
+  cursor: pointer;
+
+  transition: border 0.3s ease;
+
+  appearance: none; /* Remove default arrow in some browsers */
+
+  -webkit-appearance: none;
+
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+
+  background-repeat: no-repeat;
+
+  background-position-x: 100%;
+
+  background-position-y: 5px;
+
+  padding-right: 25px;
+
+}#languageSelect:focus {
+
+  outline: none;
+
+  border-color: #4c8baf;
+
+  box-shadow: 0 0 0 0.2rem rgba(76, 139, 175, 0.25); /* Add focus shadow */
+
+}label[for="imageFormat"] {
+
+  font-size: 1rem;
+
+  margin-right: 10px;
+
+  font-weight: 500; /* Slightly bold labels */
+
+}#imageFormat {
+
+  padding: 10px 15px; /* Increased padding */
+
+  font-size: 1rem;
+
+  border: 1px solid #ccc;
+
+  border-radius: 6px; /* More rounded */
+
+  background-color: #fff;
+
+  cursor: pointer;
+
+  transition: border 0.3s ease;
+
+  appearance: none; /* Remove default arrow in some browsers */
+
+  -webkit-appearance: none;
+
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+
+  background-repeat: no-repeat;
+
+  background-position-x: 100%;
+
+  background-position-y: 5px;
+
+  padding-right: 25px;
+
+  /* Center the dropdown */
+
+  display: inline-block;
+
+  margin-top: 0.5rem; /* Adjust top margin */
+
+  margin-left: 0.5rem; /* Add some left margin for spacing */
+
+  vertical-align: middle; /* Align with the label */
+
+}#imageFormat:focus {
+
+  outline: none;
+
+  border-color: #4c8baf;
+
+  box-shadow: 0 0 0 0.2rem rgba(76, 139, 175, 0.25); /* Add focus shadow */
+
+}/* Back Button */.back-button {
+
+  position: absolute;
+
+  top: 30px; /* Adjusted position */
+
+  left: 30px; /* Adjusted position */
+
+}.back-button button {
+
+  background-color: #4CAF50;
+
+  color: white;
+
+  padding: 12px 25px; /* Increased padding */
+
+  border: none;
+
+  border-radius: 8px; /* More rounded */
+
+  cursor: pointer;
+
+  font-size: 1.1rem; /* Increased font size */
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out; /* Added transform */
+
+}.back-button button:hover,.back-button button:focus {
+
+  background-color: #367c39;
+
+  outline: none;
+
+  transform: translateY(-2px); /* Slight lift on hover/focus */
+
+}/* Download Button */#downloadQrCard {
+
+  margin-top: 2rem; /* Increased margin */
+
+  background-color: #007bff; /* Primary blue color */
+
+  color: white;
+
+  padding: 12px 25px;
+
+  font-size: 1.1rem;
+
+  border: none;
+
+  border-radius: 8px; /* More rounded */
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out; /* Added transform */
+
+  margin-left: auto;
+
+  margin-right: auto;
+
+  display: block; /* Make it a block-level element to apply margin: auto; */
+
+  margin-bottom: 1rem; /* Add some bottom margin to separate from the dropdown */
+
+}#downloadQrCard:hover,#downloadQrCard:focus {
+
+  background-color: #0056b3;
+
+  outline: none;
+
+  transform: translateY(-2px); /* Slight lift on hover/focus */
+
+}/* Responsive Adjustments */@media (max-width: 768px) {
+
+  .container {
+
+    padding: 30px;
+
+    margin: 20px auto; /* Adjusted margins for smaller screens */
+
+  }
+
+
+
+  .info-wrapper {
+
+    flex-direction: column;
+
+    gap: 1rem; /* Adjusted gap for smaller screens */
+
+  }
+
+
+
+  h1 {
+
+    font-size: 2.2rem;
+
+    margin-bottom: 30px;
+
+  }
+
+
+
+  h2 {
+
+    font-size: 1.5rem;
+
+    margin-top: 30px;
+
+  }
+
+
+
+  .back-button {
+
+    top: 20px;
+
+    left: 20px;
+
+  }
+
+
+
+  .back-button button {
+
+    padding: 10px 20px;
+
+    font-size: 1rem;
+
+  }
+
+
+
+  #downloadQrCard {
+
+    margin-top: 1.5rem;
+
+    font-size: 1rem;
+
+    padding: 10px 20px;
+
+  }
+
+}

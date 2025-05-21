@@ -1,0 +1,19 @@
+<% if (employees && employees.length > 0) { %>
+    <% employees.forEach(employee => { %>
+        <tr>
+            <td><%= employee.Name_MN %> <%= employee.LastName_MN %></td>
+            <td><%= employee.Department_MN %></td>
+            <td><%= employee.Occupation_MN %></td>
+            <td><%= employee.Email %></td>
+            <td>
+                <a href="/edit-profile/<%= employee.id %>">Edit</a> |
+                <a href="/card/<%= employee.id %>">View Card</a> |
+                <button onclick="confirmDelete('<%= employee.id %>')">Delete</button>
+            </td>
+        </tr>
+    <% }) %>
+<% } else { %>
+    <tr>
+        <td colspan="5">No employees found.</td>
+    </tr>
+<% } %>

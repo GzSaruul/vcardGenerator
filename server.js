@@ -41,7 +41,7 @@ app.post('/login', (req, res) => {
 // Dashboard: list employees
 app.get('/dashboard', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
-  db.all('SELECT * FROM employees', [], (err, employees) => {
+  db.all('SELECT * FROM employees ORDER BY Name_MN', [], (err, employees) => {
     if (err) return res.status(500).send('Error retrieving employee data');
     res.render('dashboard', { user: req.session.user, employees });
   });
@@ -68,20 +68,12 @@ app.get('/add-employee', (req, res) => {
     fieldCountryMN: 'Улс',
     fieldPhone: 'Утас', fieldEmail: 'Имэйл', fieldWebsite: 'Вэбсайт',
     message: 'Бүх утгыг бүрэн бөглөнө үү.',
-    generateQrText: 'QR ҮҮСГЭХ', downloadText: 'ТАТАХ',
-    languageLabel: 'Хэл солих', englishOption: 'English', mongolianOption: 'Mongolian'
+    generateQrText: 'ХАДАГЛАХ', downloadText: 'ТАТАХ',
+    languageLabel: 'QR хэл солих', englishOption: 'English', mongolianOption: 'Mongolian'
   });
 });
 
-// Traditional form POST (if used)
-app.post('/add-employee', (req, res) => {
-  const { Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN, Phone, Email, Website } = req.body;
-  const sql = 'INSERT INTO employees (Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN, Phone, Email, Website) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  db.run(sql, [Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN, Phone, Email, Website], function (err) {
-    if (err) return res.status(500).send('Error saving employee');
-    res.redirect('/employee-list');
-  });
-});
+
 
 // Route to display the edit employee form
 app.get('/edit-profile/:id', (req, res) => {
@@ -107,27 +99,47 @@ app.post('/edit-employee/:id', (req, res) => {
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
     Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
     Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
-    Phone, Email, Website
+    Phone, Email, Website, qr_data
   } = req.body;
 
-  const sql = `
-        UPDATE employees SET
-          Name_EN = ?, LastName_EN = ?, Department_EN = ?, Occupation_EN = ?, CompanyName_EN = ?,
-          Street_EN = ?, POBox_EN = ?, Region_EN = ?, City_EN = ?, Postal_EN = ?, Country_EN = ?,
-          Name_MN = ?, LastName_MN = ?, Department_MN = ?, Occupation_MN = ?, CompanyName_MN = ?,
-          Street_MN = ?, POBox_MN = ?, Region_MN = ?, City_MN = ?, Postal_MN = ?, Country_MN = ?,
-          Phone = ?, Email = ?, Website = ?
-        WHERE id = ?
-    `;
+const sql = "UPDATE employees SET " +
+  "Name_EN = ?, " +
+  "LastName_EN = ?, " +
+  "Department_EN = ?, " +
+  "Occupation_EN = ?, " +
+  "CompanyName_EN = ?, " +
+  "Street_EN = ?, " +
+  "POBox_EN = ?, " +
+  "Region_EN = ?, " +
+  "City_EN = ?, " +
+  "Postal_EN = ?, " +
+  "Country_EN = ?, " +
+  "Name_MN = ?, " +
+  "LastName_MN = ?, " +
+  "Department_MN = ?, " +
+  "Occupation_MN = ?, " +
+  "CompanyName_MN = ?, " +
+  "Street_MN = ?, " +
+  "POBox_MN = ?, " +
+  "Region_MN = ?, " +
+  "City_MN = ?, " +
+  "Postal_MN = ?, " +
+  "Country_MN = ?, " +
+  "Phone = ?, " +
+  "Email = ?, " +
+  "Website = ?, " +
+  "qr_data = ? " +
+"WHERE id = ?";
 
-  const params = [
-    Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
-    Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
-    Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
-    Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
-    Phone, Email, Website,
-    employeeId // The ID to update
-  ];
+const params = [
+  Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
+  Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
+  Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
+  Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
+  Phone, Email, Website, qr_data,
+  employeeId // The ID to update
+];
+
 
   db.run(sql, params, function (err) {
     if (err) {
@@ -155,7 +167,7 @@ app.post('/api/employee', (req, res) => {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
     Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
-    Street_MN, POBox_EN, Region_MN, City_MN, Postal_MN, Country_MN,
+    Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
     Phone, Email, Website, qr_data
   ) VALUES (${Array(26).fill('?').join(',')})`; // Ensure this is correct
 
@@ -163,7 +175,7 @@ app.post('/api/employee', (req, res) => {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
     Name_MN, LastName_MN, Department_MN, Occupation_MN, CompanyName_MN,
-    Street_MN, POBox_EN, Region_MN, City_MN, Postal_MN, Country_MN,
+    Street_MN, POBox_MN, Region_MN, City_MN, Postal_MN, Country_MN,
     Phone, Email, Website, qr_data
   ];
 
@@ -218,29 +230,54 @@ app.get('/delete-employee/:id', (req, res) => {
   });
 });
 
-// Route to generate QR code
-app.get('/download-vcard/:id', (req, res) => {
+
+
+const QRCode = require('qrcode');
+
+app.post('/generate-qr/:id', (req, res) => {
   const id = req.params.id;
+  const { language } = req.body; // Accept language
+
   db.get('SELECT * FROM employees WHERE id = ?', [id], (err, employee) => {
     if (err || !employee) return res.status(404).send('Employee not found');
 
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:${employee.LastName_EN};${employee.Name_EN}
-FN:${employee.Name_EN} ${employee.LastName_EN}
-ORG:${employee.CompanyName_EN}
-TITLE:${employee.Occupation_EN}
-TEL;TYPE=CELL:${employee.Phone}
-EMAIL;TYPE=INTERNET:${employee.Email}
-URL:${employee.Website}
-END:VCARD`;
+    const getValue = key => employee[key] || "";
 
-    res.setHeader('Content-disposition', 'attachment; filename=contact.vcf');
-    res.setHeader('Content-type', 'text/vcard');
-    res.send(vcard);
+    const vcard = language === 'MN' ? [
+      "BEGIN:VCARD", "VERSION:3.0",
+      `N;CHARSET=UTF-8:${getValue("LastName_MN")};${getValue("Name_MN")}`,
+      `FN;CHARSET=UTF-8:${getValue("Name_MN")} ${getValue("LastName_MN")}`,
+      `ORG;CHARSET=UTF-8:${getValue("CompanyName_MN")};${getValue("Department_MN")}`,
+      `TITLE;CHARSET=UTF-8:${getValue("Occupation_MN")}`,
+      `ADR;TYPE=WORK;CHARSET=UTF-8:${getValue("POBox_MN")};;${getValue("Street_MN")};${getValue("City_MN")};${getValue("Region_MN")};${getValue("Postal_MN")};${getValue("Country_MN")}`,
+      `TEL;TYPE=CELL:${getValue("Phone")}`,
+      `EMAIL;TYPE=INTERNET:${getValue("Email")}`,
+      `URL:${getValue("Website")}`,
+      "END:VCARD"
+    ].join("\r\n") : [
+      "BEGIN:VCARD", "VERSION:3.0",
+      `N:${getValue("LastName_EN")};${getValue("Name_EN")}`,
+      `FN:${getValue("Name_EN")} ${getValue("LastName_EN")}`,
+      `ORG:${getValue("CompanyName_EN")};${getValue("Department_EN")}`,
+      `TITLE:${getValue("Occupation_EN")}`,
+      `ADR;TYPE=WORK:${getValue("POBox_EN")};;${getValue("Street_EN")};${getValue("City_EN")};${getValue("Region_EN")};${getValue("Postal_EN")};${getValue("Country_EN")}`,
+      `TEL;TYPE=CELL:${getValue("Phone")}`,
+      `EMAIL;TYPE=INTERNET:${getValue("Email")}`,
+      `URL:${getValue("Website")}`,
+      "END:VCARD"
+    ].join("\r\n");
+
+    QRCode.toDataURL(vcard, { errorCorrectionLevel: 'H' }, (err, qrDataUrl) => {
+      if (err) {
+        console.error("QR Code generation error:", err);
+        return res.status(500).send("Failed to generate QR code");
+      }
+      res.json({ qrUrl: qrDataUrl });
+    });
   });
 });
-// Route to generate QR code
+
+
 
 // Logout
 app.get('/logout', (req, res) => {
@@ -255,7 +292,7 @@ app.get('/generate', (req, res) => {
   res.render('yourTemplate', {
     title: 'vCard Generator', headerTitle: 'VCard', sectionTitle: 'Ажилтаны мэдээлэл',
     fieldNameEN: 'Name', fieldLastNameEN: 'Last Name', message: 'Бүх утгыг бүрэн бөглөнө үү.',
-    generateQrText: 'QR ҮҮСГЭХ', downloadText: 'ТАТАХ', languageLabel: 'Хэл солих',
+    generateQrText: 'ХАДАГЛАХ', downloadText: 'ТАТАХ', languageLabel: 'QR хэл солих',
     englishOption: 'English', mongolianOption: 'Mongolian'
   });
 });

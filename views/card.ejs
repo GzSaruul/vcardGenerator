@@ -4,66 +4,98 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Employee Info</title>
+  <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico">
+  <script>const employeeData = <%- JSON.stringify(employee) %>;</script>
   <link rel="stylesheet" href="/css/card.css"/>
-  <script type="module" src="/js/card.js"></script> <!-- Fixed path -->
+  <script type="module" src="/js/card.js"></script>  
 </head>
 <body>
   <div class="container">
     <div class="back-button">
       <button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
     </div>
+
     <h1>Employee Information</h1>
 
-    <!-- English Info -->
-    <h2>Name (English): <%= employee.Name_EN %> <%= employee.LastName_EN %></h2>
-    <h3>Department: <%= employee.Department_EN %></h3>
-    <p>Occupation: <%= employee.Occupation_EN %></p>
-    <p>Company: <%= employee.CompanyName_EN %></p>
+    <div class="info-wrapper" style="display: flex; gap: 2rem; flex-wrap: wrap;">
 
-    <h3>Contact Info</h3>
-    <p>Phone: <%= employee.Phone %></p>
-    <p>Email: <%= employee.Email %></p>
-    <p>Website: <%= employee.Website %></p>
+      <!-- English Section -->
+      <section class="info-block" style="flex: 1;">
+        <h2>English</h2>
+        <p><strong>Name:</strong><%= employee.Name_EN %> <%= employee.LastName_EN %></strong></p>
+        <p><strong>Department:</strong> <%= employee.Department_EN %></p>
+        <p><strong>Occupation:</strong> <%= employee.Occupation_EN %></p>
+        <p><strong>Company:</strong> <%= employee.CompanyName_EN %></p>
 
-    <h3>Address (English)</h3>
-    <p>
-      <%= employee.Street_EN %>, 
-      <%= employee.City_EN %>, 
-      <%= employee.Region_EN %>, 
-      <%= employee.Postal_EN %>, 
-      <%= employee.Country_EN %>
-    </p>
+        <h3>Contact Info:</h3>
+        <p><strong>Phone:</strong> <%= employee.Phone %></p>
+        <p><strong>Email:</strong> <%= employee.Email %></p>
+        <p><strong>Website:</strong> <%= employee.Website %></p>
 
-    <!-- Mongolian Info -->
-    <h2>Нэр (Mongolian): <%= employee.Name_MN %> <%= employee.LastName_MN %></h2>
-    <h3>Хэлтэс: <%= employee.Department_MN %></h3>
-    <p>Албан тушаал: <%= employee.Occupation_MN %></p>
-    <p>Компани: <%= employee.CompanyName_MN %></p>
+        <h3>Address:</h3>
+        <p>
+          <%= employee.Street_EN %>, 
+          <%= employee.City_EN %>, 
+          <%= employee.Region_EN %>, 
+          <%= employee.POBox_EN %>, 
+          <%= employee.Postal_EN %>, 
+          <%= employee.Country_EN %>
+        </p>
+      </section>
 
-    <h3>Холбоо барих мэдээлэл</h3>
-    <p>Утас: <%= employee.Phone %></p>
-    <p>И-мэйл: <%= employee.Email %></p>
-    <p>Вебсайт: <%= employee.Website %></p>
+      <!-- Mongolian Section -->
+      <section class="info-block" style="flex: 1;">
+        <h2>Mongolian</h2>
+        <p><strong>Нэр:</strong><%= employee.Name_MN %> <%= employee.LastName_MN %></p>
+        <p><strong>Хэлтэс:</strong> <%= employee.Department_MN %></p>
+        <p><strong>Албан тушаал:</strong> <%= employee.Occupation_MN %></p>
+        <p><strong>Компани:</strong> <%= employee.CompanyName_MN %></p>
 
-    <h3>Хаяг (Mongolian)</h3>
-    <p>
-      <%= employee.Street_MN %>, 
-      <%= employee.City_MN %>, 
-      <%= employee.Region_MN %>, 
-      <%= employee.Postal_MN %>, 
-      <%= employee.Country_MN %>
-    </p>
+        <h3>Холбоо барих: </h3>
+        <p><strong>Утас:</strong> <%= employee.Phone %></p>
+        <p><strong>И-мэйл:</strong> <%= employee.Email %></p>
+        <p><strong>Вебсайт:</strong> <%= employee.Website %></p>
 
-    <div class="qr-code">
-      <% if (employee.qr_data) { %>
-        <img src="<%= employee.qr_data %>" alt="QR Code" id="employeeQrCode">
-      <% } else { %>
-        <p id="noQrCode">No QR Code Available</p>
-      <% } %>
+        <h3>Хаяг:</h3>
+        <p>
+          <%= employee.Street_MN %>, 
+          <%= employee.City_MN %>, 
+          <%= employee.Region_MN %>,
+          <%= employee.POBox_MN %>, 
+          <%= employee.Postal_MN %>, 
+          <%= employee.Country_MN %>
+        </p>
+      </section>
     </div>
-    <a href="/download-vcard/<%= employee.id %>">Download vCard</a>
 
-    <button id="generateQrButton">Generate QR Code</button>
+    <hr style="margin: 2rem 0;" />
+
+    <!-- QR Code & Language Switcher -->
+    <section class="qr-section" style="text-align: center;">
+      <h3>vCard QR Code</h3>
+
+      <div style="margin-bottom: 1rem;">
+        <label for="languageSelect"><strong>Select Language:</strong></label>
+        <select id="languageSelect">
+          <option value="EN">English</option>
+          <option value="MN">Mongolian</option>
+        </select>
+      </div>
+
+      <div class="qr-code">
+          <img id="qrImage" alt="QR Code will appear here" />
+      </div>
+   
+      <button id="downloadQrCard" >Download QR Code</button>
+      <div style="margin-top: 1rem;">
+        <label for="imageFormat">Download As:</label>
+        <select id="imageFormat">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPG</option>
+          <option value="webp">webp</option>
+        </select>
+      </div>
+    </section>
   </div>
 </body>
 </html>
