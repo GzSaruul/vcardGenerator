@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const db = require('./database'); // database.js sets up SQLite
-
+const bcrypt = require('bcrypt');
 const app = express();
 const port = 3000;
 
@@ -15,6 +15,9 @@ app.use(express.static('public')); // Serve static files (CSS, JS, images)
 app.set('view engine', 'ejs');
 app.use(session({ secret: 'Saruul1127', resave: false, saveUninitialized: true }));
 app.set('views', path.join(__dirname, 'views'));
+
+
+
 
 // Root: redirect based on login
 app.get('/', (req, res) => {
@@ -28,15 +31,39 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-// Login form
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === '123') {
-    req.session.user = { username };
-    return res.redirect('/dashboard');
-  }
-  res.render('login', { error: 'Invalid login' });
+
+  db.get("SELECT * FROM users WHERE username = ?", [username], (err, user) => {
+    if (err) {
+      console.error('DB error:', err);
+      return res.status(500).send('Internal server error');
+    }
+
+    if (!user) {
+      return res.render('login', { error: 'Invalid login' });
+    }
+
+    // Use bcrypt.compare to verify password
+    bcrypt.compare(password, user.password, (err, result) => {
+      if (err) {
+        console.error('Bcrypt error:', err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (!result) {
+        // Passwords do not match
+        return res.render('login', { error: 'Invalid login' });
+      }
+
+      // Password matched, set session and redirect
+      req.session.user = { id: user.id, username: user.username };
+      res.redirect('/dashboard');
+    });
+  });
 });
+
+
 
 // Dashboard: list employees
 app.get('/dashboard', (req, res) => {
