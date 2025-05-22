@@ -17,6 +17,51 @@ h2.page-title {
   letter-spacing: 1px; /* Subtle spacing for a refined look */
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #4c8baf;
+  color: white;
+  /* position: relative; */ /* Remove this line */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Align nav to the right */
+.nav-right {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-text {
+  font-size: 1rem;
+  color: white;
+}
+
+.logout-btn {
+  background-color: white;
+  color: #4c8baf;
+  padding: 8px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #d9d9d9; /* Darken white slightly */
+  color: #333;
+}
+
 /* Table Styling */
 table {
   width: 100%;
@@ -29,7 +74,8 @@ table {
 }
 
 /* Table Header Styling */
-th, td {
+th,
+td {
   padding: 14px 20px;
   text-align: left;
   font-size: 1.1rem; /* Slightly larger font size for readability */
@@ -47,23 +93,10 @@ tr:nth-child(even) {
   background-color: #f9fafb; /* Light gray for alternating rows */
 }
 
-tr:hover {
-  background-color: #e1f5e8; /* Soft green hover effect */
-  cursor: pointer;
-  transform: scale(1.02); /* Slight zoom effect */
-  transition: all 0.2s ease-in-out; /* Smooth transition */
-}
-
 /* Table Body Styling */
 td {
   background-color: white;
   border-top: 1px solid #eee; /* Subtle separation between rows */
-}
-
-.employee-table {
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
 }
 
 /* Empty State Styling */
@@ -95,12 +128,6 @@ td {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-.user-info {
-  font-size: 1.1rem;
-  color: #666;
-  margin: 20px 0;
-}
-
 /* Navigation Styling */
 nav {
   margin-top: 30px;
@@ -114,14 +141,7 @@ nav a {
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
-  transition: all 0.2s ease;
-}
-
-nav a:hover {
-  background-color: #f1f1f1;
-  color: #007bff;
-  text-decoration: underline;
-  transform: scale(1.05);
+  transition: background-color 0.3s ease;
 }
 
 /* Buttons */
@@ -133,12 +153,11 @@ button {
   font-size: 1.1rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  background-color: #0056b3; /* Darken blue */
 }
 
 /* Footer */
@@ -152,10 +171,6 @@ footer {
 footer a {
   color: #007bff;
   text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
 }
 
 /* Search Container */
@@ -182,4 +197,69 @@ footer a:hover {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
-  
+
+.add-employee-button {
+  display: inline-block;
+  background-color: #4c8baf;
+  color: white;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.add-employee-button:hover {
+  background-color: #3b7492; /* Darken green-blue */
+}
+
+/* Style for the "Засах" and "Дэлгэрэнүй" links as buttons */
+.container table td a {
+  display: inline-block; /* Revert back to inline-block */
+  background-color: #007bff; /* Blue background, same as other buttons */
+  color: white;
+  padding: 6px 10px; /* Reduced padding */
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 2px; /* Further reduced margin */
+  font-size: 13px; /* Reduced font size */
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Try keeping on one line */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Show ellipsis if overflowing */
+}
+
+.container table td a:hover {
+  background-color: #0056b3; /* Darken blue */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+/* Ensure the "УСТГАХ" button still has its red color */
+.container table td button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px; /* Reduced padding */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px; /* Reduced font size */
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Try keeping on one line */
+}
+
+.container table td button:hover {
+  background-color: #c82333; /* Darken red */
+}
+
+/* Style the last table data cell (Actions) to use flexbox */
+.container table tr td:last-child {
+  display: flex;
+  align-items: center; /* Vertically align items in the center */
+  justify-content: flex-start; /* Align items horizontally to the start */
+  gap: 5px; /* Add some spacing between the buttons */
+}

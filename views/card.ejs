@@ -12,10 +12,10 @@
 <body>
   <div class="container">
     <div class="back-button">
-      <button onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+      <button onclick="window.location.href='/dashboard'">← Буцах</button>
     </div>
 
-    <h1>Employee Information</h1>
+    <h1>Ажилтаны мэдээлэл</h1>
 
     <div class="info-wrapper" style="display: flex; gap: 2rem; flex-wrap: wrap;">
 
@@ -27,12 +27,12 @@
         <p><strong>Occupation:</strong> <%= employee.Occupation_EN %></p>
         <p><strong>Company:</strong> <%= employee.CompanyName_EN %></p>
 
-        <h3>Contact Info:</h3>
+        <h3><strong>Contact Info:</strong></h3>
         <p><strong>Phone:</strong> <%= employee.Phone %></p>
         <p><strong>Email:</strong> <%= employee.Email %></p>
         <p><strong>Website:</strong> <%= employee.Website %></p>
 
-        <h3>Address:</h3>
+        <h3><strong>Address:</strong></h3>
         <p>
           <%= employee.Street_EN %>, 
           <%= employee.City_EN %>, 
@@ -51,12 +51,12 @@
         <p><strong>Албан тушаал:</strong> <%= employee.Occupation_MN %></p>
         <p><strong>Компани:</strong> <%= employee.CompanyName_MN %></p>
 
-        <h3>Холбоо барих: </h3>
+        <h3><strong>Холбоо барих:</strong></h3>
         <p><strong>Утас:</strong> <%= employee.Phone %></p>
         <p><strong>И-мэйл:</strong> <%= employee.Email %></p>
         <p><strong>Вебсайт:</strong> <%= employee.Website %></p>
 
-        <h3>Хаяг:</h3>
+        <h3><strong>Хаяг:</strong></h3>
         <p>
           <%= employee.Street_MN %>, 
           <%= employee.City_MN %>, 
@@ -75,7 +75,7 @@
       <h3>vCard QR Code</h3>
 
       <div style="margin-bottom: 1rem;">
-        <label for="languageSelect"><strong>Select Language:</strong></label>
+        <label for="languageSelect"><strong>QR хэл солих:</strong></label>
         <select id="languageSelect">
           <option value="EN">English</option>
           <option value="MN">Mongolian</option>
@@ -86,9 +86,9 @@
           <img id="qrImage" alt="QR Code will appear here" />
       </div>
    
-      <button id="downloadQrCard" >Download QR Code</button>
+      <button id="downloadQrCard" >QR Code татах</button>
       <div style="margin-top: 1rem;">
-        <label for="imageFormat">Download As:</label>
+        <label for="imageFormat">Татах төрөл:</label>
         <select id="imageFormat">
           <option value="png">PNG</option>
           <option value="jpeg">JPG</option>

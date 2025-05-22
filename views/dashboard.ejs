@@ -19,35 +19,51 @@
             <h1>Employee Dashboard</h1>
             <nav>
                 <% if (user) { %>
-                    <p>Welcome, <%= user.username %></p> |
-                    <a href="/logout">Logout</a>
+                    <span class="user-text">Welcome, <%= user.username %></span>
+                    <a href="/logout" class="logout-btn">Logout</a>
                 <% } else { %>
                     <a href="/login">Login</a>
                 <% } %>
             </nav>
         </header>
         <main class="container">
-        <section class="employee-list">
-            <h2>List of Employees</h2>
+          <section class="employee-list">
+            <h2>Ажилтаны жягсаалт</h2>
+            <a href="/add-employee" class="add-employee-button">Шинэ ажилтаны мэдээлэл оруулах</a>
             <div class="search-container">
-                <input type="text" id="searchBox" placeholder="Search employees..." oninput="filterTable()">
+              <input type="text" id="searchBox" placeholder="Search employees..." oninput="filterTable()">
             </div>
             <table>
-                <thead>
-                    <tr>
-                        <th>Name (MN)</th>
-                        <th>Department (MN)</th>
-                        <th>Occupation (MN)</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+              <thead>
+                <tr>
+                  <th>№</th> <th>Нэр</th>
+                  <th>Хэлтэс</th>
+                  <th>Албан тушаал</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="employee-table-body">
+                <% if (employees && employees.length > 0) { %>
+                  <% employees.forEach((employee, index) => { %> <tr>
+                      <td><%= index + 1 %></td> <td><%= employee.Name_MN %> <%= employee.LastName_MN %></td>
+                      <td><%= employee.Department_MN %></td>
+                      <td><%= employee.Occupation_MN %></td>
+                      <td><%= employee.Email %></td>
+                      <td>
+                        <a href="/edit-profile/<%= employee.id %>">Засах</a> |
+                        <a href="/card/<%= employee.id %>">Дэлгэрэнгүй</a> |
+                        <button onclick="confirmDelete('<%= employee.id %>')">УСТГАХ</button>
+                      </td>
                     </tr>
-                </thead>
-                <tbody class="employee-table-body">
-                    <%- include('_employee_table_body') %>
-                </tbody>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6">Ажилтаны мэдээлэл олдсонгүй.</td> </tr>
+                <% } %>
+              </tbody>
             </table>
-            <a href="/add-employee" class="add-employee-button">Add Employee</a>
-        </section>
+          </section>
         </main>
         <footer>
             <p>&copy; 2025 vCard Generator</p>

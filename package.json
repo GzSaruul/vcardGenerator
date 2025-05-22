@@ -1,4 +1,13 @@
 {
+  "name": "vcard-generator",
+  "version": "1.0.0",
+  "description": "A simple vCard generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "start:dev": "nodemon server.js"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "ejs": "^3.1.10",
@@ -6,6 +15,7 @@
     "express-session": "^1.18.1",
     "qr-code-styling": "^1.9.2",
     "qrcode": "^1.5.4",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "xlsx": "^0.18.5"
   }
 }

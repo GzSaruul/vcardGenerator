@@ -79,8 +79,7 @@ app.get('/add-employee', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   res.render('add-employee', {
     title: 'Add Employee',
-    headerTitle: 'Employee Registration',
-    sectionTitle: 'Enter New Employee Info',
+    headerTitle: 'Шинэ ажилтны мэдээлэл',
     fieldNameEN: 'Name', fieldLastNameEN: 'Last Name',
     fieldDepartmentEN: 'Department', fieldOccupationEN: 'Occupation',
     fieldCompanyNameEN: 'Company Name', fieldStreetEN: 'Street',
@@ -104,6 +103,7 @@ app.get('/add-employee', (req, res) => {
 
 // Route to display the edit employee form
 app.get('/edit-profile/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
   const employeeId = req.params.id;
   db.get('SELECT * FROM employees WHERE id = ?', [employeeId], (err, employee) => {
     if (err) {
@@ -119,7 +119,7 @@ app.get('/edit-profile/:id', (req, res) => {
 
 // Route to handle the form submission for updating employee data
 app.post('/edit-employee/:id', (req, res) => {
-  if (!req.session.user) return res.status(401).send('Not authorized');
+  if (!req.session.user) return res.redirect('/login');
   const employeeId = req.params.id;
   const {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
@@ -181,7 +181,7 @@ const params = [
 
 // API to save employee data
 app.post('/api/employee', (req, res) => {
-  if (!req.session.user) return res.status(401).json({ error: 'Not authorized' });
+  if (!req.session.user) return res.redirect('/login');
   const {
     Name_EN, LastName_EN, Department_EN, Occupation_EN, CompanyName_EN,
     Street_EN, POBox_EN, Region_EN, City_EN, Postal_EN, Country_EN,
@@ -230,6 +230,7 @@ app.get('/employee-list', (req, res) => {
 
 // Employee Card
 app.get('/card/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
   const id = req.params.id;
   // Include qr_data in the select query
   db.get('SELECT *, qr_data FROM employees WHERE id = ?', [id], (err, row) => {
@@ -262,6 +263,7 @@ app.get('/delete-employee/:id', (req, res) => {
 const QRCode = require('qrcode');
 
 app.post('/generate-qr/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/login');
   const id = req.params.id;
   const { language } = req.body; // Accept language
 
@@ -315,14 +317,15 @@ app.get('/logout', (req, res) => {
 });
 
 // vCard generator template
-app.get('/generate', (req, res) => {
-  res.render('yourTemplate', {
-    title: 'vCard Generator', headerTitle: 'VCard', sectionTitle: 'Ажилтаны мэдээлэл',
-    fieldNameEN: 'Name', fieldLastNameEN: 'Last Name', message: 'Бүх утгыг бүрэн бөглөнө үү.',
-    generateQrText: 'ХАДАГЛАХ', downloadText: 'ТАТАХ', languageLabel: 'QR хэл солих',
-    englishOption: 'English', mongolianOption: 'Mongolian'
-  });
-});
+// app.get('/generate', (req, res) => {
+//   if (!req.session.user) return res.redirect('/login');
+//   res.render('yourTemplate', {
+//     title: 'vCard Generator', headerTitle: 'VCard', sectionTitle: 'Ажилтаны мэдээлэл',
+//     fieldNameEN: 'Name', fieldLastNameEN: 'Last Name', message: 'Бүх утгыг бүрэн бөглөнө үү.',
+//     generateQrText: 'ХАДАГЛАХ', downloadText: 'ТАТАХ', languageLabel: 'QR хэл солих',
+//     englishOption: 'English', mongolianOption: 'Mongolian'
+//   });
+// });
 
 // Start server
 app.listen(port, () => console.log(`App running at http://localhost:${port}`));

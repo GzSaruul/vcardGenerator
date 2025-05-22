@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="/css/edit-profile.css"> </head>
 <body>
     <header>
-        <h1>Edit Employee</h1>
+        <h1>Ажилтаны мэдээлэл засах</h1>
         <nav>
-            <a href="/dashboard">Dashboard</a> |
-            <a href="/logout">Logout</a>
+            <a href="/dashboard" class="dashboard-button">← Буцах</a>
         </nav>
     </header>
 
     <main class="container">
         <section class="employee-form">
-            <h2>Edit Employee Information</h2>
             <% if (employee) { %>
                 <form action="/edit-employee/<%= employee.id %>" method="POST">
                     <fieldset>
@@ -46,7 +44,7 @@
                             <input type="text" id="Street_EN" name="Street_EN" value="<%= employee.Street_EN %>">
                         </div>
                         <div>
-                            <label for="POBox_EN">P.O. Box:</label>
+                            <label for="POBox_EN">P.O.Box:</label>
                             <input type="text" id="POBox_EN" name="POBox_EN" value="<%= employee.POBox_EN %>">
                         </div>
                         <div>
@@ -131,8 +129,8 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit">Save Changes</button>
-                    <a href="/dashboard" class="cancel-button">Cancel</a>
+                    <button type="submit">Хадаглах</button>
+                    <a href="/dashboard" class="cancel-button">Буцах</a>
                 </form>
             <% } else { %>
                 <p>Employee not found.</p>
